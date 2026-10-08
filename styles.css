@@ -1,0 +1,329 @@
+/* ==========================================
+   BATTLE WORD EDUCATION - ESTILOS CSS
+   ========================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Nunito:wght@600;800&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+}
+
+body {
+    background-color: #1a1612;
+    font-family: 'Nunito', sans-serif;
+    color: #3d2612;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+#game-container {
+    width: 960px;
+    height: 540px;
+    background: #f4e8c1;
+    border: 10px solid #5a3825;
+    border-radius: 16px;
+    box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.8), inset 0 0 50px rgba(139, 69, 19, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.screen {
+    width: 100%;
+    height: 100%;
+    padding: 24px;
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.screen.active {
+    display: flex;
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Cinzel', serif;
+    color: #4a2810;
+    text-shadow: 1px 1px 0px #fceabb;
+}
+
+h1 {
+    font-size: 1.8rem;
+    background: #e8d3a7;
+    padding: 10px 20px;
+    border: 3px double #7a481e;
+    border-radius: 12px;
+}
+
+h2 {
+    font-size: 1.5rem;
+}
+
+/* BOTONES */
+.btn {
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+    font-size: 1.1rem;
+    padding: 10px 24px;
+    border: 3px solid #3d230d;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 0px #3d230d;
+}
+
+.btn-primary {
+    background-color: #2e7d32;
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background-color: #388e3c;
+    transform: translateY(-2px);
+}
+
+.btn-danger {
+    background-color: #c62828;
+    color: #ffffff;
+}
+
+.btn-menu {
+    background-color: #d7ccc8;
+    color: #3e2723;
+    width: 220px;
+}
+
+.button-group {
+    display: flex;
+    gap: 20px;
+}
+
+/* ELEMENTOS GRÁFICOS Y CARGA */
+.hero-illustration {
+    font-size: 4rem;
+    margin: 20px 0;
+}
+
+.hourglass {
+    font-size: 3rem;
+    animation: rotateHourglass 2s infinite ease-in-out;
+}
+
+@keyframes rotateHourglass {
+    0% { transform: rotate(0deg); }
+    50% { transform: rotate(180deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.progress-bar-container {
+    width: 70%;
+    height: 20px;
+    background-color: #d7ccc8;
+    border: 2px solid #4e342e;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #f57c00, #2e7d32);
+    transition: width 0.3s ease;
+}
+
+/* BANDO */
+.faction-select {
+    display: flex;
+    gap: 30px;
+}
+
+.faction-card {
+    background: #fff8e7;
+    border: 3px solid #8c5a2b;
+    border-radius: 12px;
+    padding: 20px;
+    width: 180px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.faction-card:hover, .faction-card.selected {
+    transform: scale(1.05);
+    border-color: #2e7d32;
+    background-color: #e8f5e9;
+}
+
+.flag {
+    font-size: 3rem;
+}
+
+/* QUIZZ */
+.quiz-container {
+    background: rgba(255, 250, 235, 0.95);
+    border: 3px solid #8c5a2b;
+    border-radius: 12px;
+    padding: 20px;
+    width: 90%;
+}
+
+.options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.btn-option {
+    background: #fff8e7;
+    border: 2px solid #8c5a2b;
+    color: #3d2612;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: left;
+}
+
+.btn-option:hover {
+    background: #f3e5ab;
+}
+
+/* MAPA */
+.map-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.1rem;
+    background: #e8d3a7;
+    padding: 5px 15px;
+    border-radius: 6px;
+}
+
+.map-view {
+    display: flex;
+    width: 100%;
+    height: 320px;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.map-canvas-area {
+    flex: 2;
+    background: #b2ebf2;
+    border: 3px solid #4a2810;
+    border-radius: 10px;
+    position: relative;
+    padding: 10px;
+}
+
+.legend-box {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    text-align: left;
+}
+
+.dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.dot.blue { background: #1976d2; }
+.dot.red { background: #d32f2f; }
+.dot.yellow { background: #fbc02d; }
+
+.territory-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    height: 80%;
+    margin-top: 35px;
+}
+
+.provincia {
+    background: #90caf9;
+    border: 2px dashed #0d47a1;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.provincia.enemiga {
+    background: #ef9a9a;
+    border-color: #b71c1c;
+}
+
+.stats-panel {
+    flex: 1;
+    background: #fff8e7;
+    border: 3px solid #4a2810;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: left;
+}
+
+.stat-item {
+    background: #e8d5b7;
+    padding: 6px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+/* EVENTOS Y RESULTADOS */
+.star-reward { font-size: 4rem; }
+.points-display { font-size: 2rem; font-weight: bold; color: #2e7d32; }
+
+.event-card {
+    background: #fff;
+    border: 3px solid #8c5a2b;
+    padding: 20px;
+    border-radius: 10px;
+    width: 70%;
+}
+
+.achievements-list, .instructions-box, .credits-box {
+    background: #fff8e7;
+    border: 2px solid #8c5a2b;
+    padding: 15px;
+    border-radius: 10px;
+    width: 80%;
+    text-align: left;
+}
+
+.achievement-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    opacity: 0.5;
+}
+
+.achievement-card.desbloqueado {
+    opacity: 1;
+    color: #2e7d32;
+}
+
+.final-flag { font-size: 5rem; }

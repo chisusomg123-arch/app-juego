@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battle Word Education - La Guerra de Independencia de las Trece Colonias</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div id="game-container">
+
+        <!-- PANTALLA 1: INICIO DE PANTALLA -->
+        <div class="screen active" id="pantalla-1">
+            <div class="banner-title">
+                <h1>LA GUERRA DE INDEPENDENCIA DE LAS TRECE COLONIAS</h1>
+            </div>
+            <div class="hero-illustration">
+                <div class="icon-hero">⛵ 🏰 ⚔️</div>
+            </div>
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="iniciarCargaJuego()">▶ JUGAR</button>
+                <button class="btn btn-danger" onclick="cambiarPantalla(17)">✖ SALIR</button>
+            </div>
+        </div>
+
+        <!-- PANTALLA 2: CARGA / MENÚ PRINCIPAL -->
+        <div class="screen" id="pantalla-2">
+            <h2>LA GUERRA DE INDEPENDENCIA DE LAS TRECE COLONIAS</h2>
+            <p>CARGANDO JUEGO...</p>
+            <div class="hourglass">⏳</div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="bar-carga-inicial"></div>
+            </div>
+        </div>
+
+        <!-- PANTALLA 3: PANTALLA DE MENÚ DEL JUEGO -->
+        <div class="screen" id="pantalla-3">
+            <h2>MENÚ PRINCIPAL</h2>
+            <div class="menu-layout">
+                <div class="menu-buttons">
+                    <button class="btn btn-menu" onclick="cambiarPantalla(4)">▶ HISTORIA</button>
+                    <button class="btn btn-menu" onclick="cambiarPantalla(14)">❓ CUESTIONARIOS / AYUDA</button>
+                    <button class="btn btn-menu" onclick="cambiarPantalla(13)">🏆 LOGROS</button>
+                    <button class="btn btn-menu" onclick="cambiarPantalla(15)">ℹ️ CRÉDITOS</button>
+                    <button class="btn btn-danger" onclick="cambiarPantalla(17)">✖ SALIR</button>
+                </div>
+                <div class="character-illustration">💂‍♂️</div>
+            </div>
+        </div>
+
+        <!-- PANTALLA 4: ELEGIR PAÍS -->
+        <div class="screen" id="pantalla-4">
+            <h2>¿CON QUÉ BANDO QUIERES JUGAR?</h2>
+            <div class="faction-select">
+                <div class="faction-card" id="card-uk" onclick="seleccionarBando('Reino Unido')">
+                    <div class="flag">🇬🇧</div>
+                    <h3>REINO UNIDO</h3>
+                </div>
+                <div class="faction-card" id="card-13" onclick="seleccionarBando('13 Colonias')">
+                    <div class="flag">🇺🇸</div>
+                    <h3>13 COLONIAS</h3>
+                </div>
+            </div>
+            <button class="btn btn-primary" id="btn-continuar-bando" onclick="confirmarBando()" style="display:none;">CONTINUAR ▶</button>
+        </div>
+
+        <!-- PANTALLA 5: CARGANDO PARTIDA -->
+        <div class="screen" id="pantalla-5">
+            <h2>PREPARANDO TU MISIÓN HISTÓRICA...</h2>
+            <div class="hourglass">⏳</div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="bar-carga-mision"></div>
+            </div>
+        </div>
+
+        <!-- PANTALLA 6: AÑO DE INICIO 1775 -->
+        <div class="screen" id="pantalla-6">
+            <div class="scroll-paper">
+                <h2>AÑO DE INICIO</h2>
+                <div class="year-display">1775</div>
+                <p class="highlight-text">¡COMIENZA LA HISTORIA!</p>
+            </div>
+            <button class="btn btn-primary" onclick="iniciarCuestionario()">EMPEZAR MISIÓN ▶</button>
+        </div>
+
+        <!-- PANTALLA 7: CUESTIÓN HISTÓRICA (1ª PARTE) -->
+        <div class="screen" id="pantalla-7">
+            <div class="quiz-container">
+                <h3 id="txt-pregunta-7">¿Qué eventos marcaron el inicio de la Guerra de Independencia de las Trece Colonias en abril de 1775?</h3>
+                <div class="options-grid" id="opciones-7"></div>
+            </div>
+        </div>
+
+        <!-- PANTALLA 8: CUESTIÓN HISTÓRICA (2ª PARTE) -->
+        <div class="screen" id="pantalla-8">
+            <div class="quiz-container">
+                <h3 id="txt-pregunta-8">¿Qué pasó en abril de 1776?</h3>
+                <div class="options-grid" id="opciones-8"></div>
+            </div>
+        </div>
+
+        <!-- PANTALLA 9: RESULTADOS -->
+        <div class="screen" id="pantalla-9">
+            <h2 id="titulo-resultado">¡RESPONDE CORRECTAMENTE!</h2>
+            <div class="star-reward" id="star-icon">⭐</div>
+            <div class="points-display" id="puntos-obtenidos">+100 PUNTOS</div>
+            <button class="btn btn-primary" onclick="continuarTrasResultado()">CONTINUAR ▶</button>
+        </div>
+
+        <!-- PANTALLA 10: PREGUNTA FINAL -->
+        <div class="screen" id="pantalla-10">
+            <div class="quiz-container">
+                <h2>PREGUNTA FINAL</h2>
+                <h3 id="txt-pregunta-10">La Declaración de Independencia fue firmada en...</h3>
+                <div class="options-grid" id="opciones-10"></div>
+            </div>
+        </div>
+
+        <!-- PANTALLA 11: MAPA - RESULTADO DE DECISIONES -->
+        <div class="screen" id="pantalla-11">
+            <div class="map-header">
+                <span><strong>BANDO:</strong> <span id="txt-bando-mapa">13 Colonias</span></span>
+                <span><strong>AÑO:</strong> <span id="txt-anio-mapa">1777</span></span>
+            </div>
+            <div class="map-view">
+                <div class="map-canvas-area" id="map-area">
+                    <div class="legend-box">
+                        <div><span class="dot blue"></span> Control Colonial</div>
+                        <div><span class="dot red"></span> Control Británico</div>
+                        <div><span class="dot yellow"></span> En Disputa</div>
+                    </div>
+                    <div id="map-territories" class="territory-container">
+                        <!-- Provincias visuales -->
+                    </div>
+                </div>
+                <div class="stats-panel">
+                    <h3>RESULTADO ACTUAL</h3>
+                    <div class="stat-item" id="txt-provincias-ganadas">TOMASTE: 0 PROVINCIAS</div>
+                    <div class="stat-item" id="txt-provincias-perdidas">PERDISTE: 0 PROVINCIAS</div>
+                    <hr>
+                    <h4>EFECTOS</h4>
+                    <div class="stat-item" id="txt-recursos">RECURSOS: 100</div>
+                    <div class="stat-item" id="txt-apoyo">APOYO POPULAR: 50%</div>
+                </div>
+            </div>
+            <button class="btn btn-primary" onclick="siguienteTurno() " style="margin-top: 10px;">SIGUIENTE TURNO ▶</button>
+        </div>
+
+        <!-- PANTALLA 11A: EJEMPLO - DECISIÓN CORRECTA -->
+        <div class="screen" id="pantalla-11a">
+            <h2>¡DECISIÓN CORRECTA!</h2>
+            <div class="event-card success">
+                <div class="event-icon">⚔️</div>
+                <h3>TOMASTE NUEVA PROVINCIA</h3>
+                <p>Las tropas avanzan con éxito gracias a tus conocimientos tácticos e históricos.</p>
+            </div>
+            <button class="btn btn-primary" onclick="cambiarPantalla(11)">VER MAPA ▶</button>
+        </div>
+
+        <!-- PANTALLA 11B: EJEMPLO - DECISIÓN INCORRECTA -->
+        <div class="screen" id="pantalla-11b">
+            <h2>DECISIÓN INCORRECTA</h2>
+            <div class="event-card danger">
+                <div class="event-icon">💥</div>
+                <h3>PERDISTE UNA PROVINCIA</h3>
+                <p>El enemigo ha aprovechado el fallo táctico para controlar la frontera.</p>
+            </div>
+            <button class="btn btn-primary" onclick="cambiarPantalla(11)">VER MAPA ▶</button>
+        </div>
+
+        <!-- PANTALLA 12: FINAL - VICTORIA / DERROTA -->
+        <div class="screen" id="pantalla-12">
+            <h1 id="titulo-final">¡VICTORIA!</h1>
+            <div class="final-flag" id="bandera-final">🇺🇸</div>
+            <p id="mensaje-final" class="highlight-text">¡HAS APOYADO CON ÉXITO A LAS 13 COLONIAS!</p>
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="reiniciarJuego()">JUGAR DE NUEVO</button>
+                <button class="btn btn-menu" onclick="cambiarPantalla(3)">VOLVER AL MENÚ</button>
+            </div>
+        </div>
+
+        <!-- PANTALLA 13: LOGROS -->
+        <div class="screen" id="pantalla-13">
+            <h2>LOGROS DESBLOQUEADOS</h2>
+            <div class="achievements-list">
+                <div class="achievement-card" id="logro-1">
+                    <span class="achievement-icon">🏆</span>
+                    <div>
+                        <h4>CONOCEDOR DE LA HISTORIA</h4>
+                        <p>Responde 3 preguntas correctas seguidas.</p>
+                    </div>
+                </div>
+                <div class="achievement-card" id="logro-2">
+                    <span class="achievement-icon">🛡️</span>
+                    <div>
+                        <h4>DEFENSOR DE LAS COLONIAS</h4>
+                        <p>Completa la primera misión táctica.</p>
+                    </div>
+                </div>
+                <div class="achievement-card" id="logro-3">
+                    <span class="achievement-icon">🎓</span>
+                    <div>
+                        <h4>HISTORIADOR EXPERTO</h4>
+                        <p>Obtén 300 puntos acumulados.</p>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-menu" onclick="cambiarPantalla(3)" style="margin-top:15px;">VOLVER AL MENÚ</button>
+        </div>
+
+        <!-- PANTALLA 14: AYUDA / INSTRUCCIONES -->
+        <div class="screen" id="pantalla-14">
+            <h2>¿CÓMO JUGAR?</h2>
+            <div class="instructions-box">
+                <p>📖 <strong>1. Lee la pregunta histórica:</strong> Analiza las opciones sobre el conflicto.</p>
+                <p>🎯 <strong>2. Selecciona la respuesta correcta:</strong> Un buen fallo táctico afectará tus tropas.</p>
+                <p>🗺️ <strong>3. Gana recursos y territorios:</strong> Domina las provincias y asegura tus fronteras en el mapa táctico.</p>
+                <p>📜 <strong>4. Alcanza el final histórico o alternativo:</strong> Cambia el rumbo del mundo.</p>
+            </div>
+            <button class="btn btn-danger" onclick="cambiarPantalla(3)">CERRAR</button>
+        </div>
+
+        <!-- PANTALLA 15: CRÉDITOS -->
+        <div class="screen" id="pantalla-15">
+            <h2>CRÉDITOS</h2>
+            <div class="credits-box">
+                <h3>Battle Word Education</h3>
+                <p>Historia de las Trece Colonias</p>
+                <p>Desarrollado para aprender historia de manera divertida e interactiva.</p>
+            </div>
+            <button class="btn btn-primary" onclick="cambiarPantalla(3)">INICIO</button>
+        </div>
+
+        <!-- PANTALLA 17: FIN DEL JUEGO -->
+        <div class="screen" id="pantalla-17">
+            <h1>¡GRACIAS POR JUGAR!</h1>
+            <div class="hero-illustration">📜 🦅 ⚔️</div>
+            <p class="highlight-text">LA HISTORIA LA ESCRIBES TÚ.</p>
+            <button class="btn btn-danger" onclick="location.reload()">SALIR DEL JUEGO</button>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
